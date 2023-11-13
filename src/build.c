@@ -11,12 +11,20 @@ const char *kissat_id (void) { return ID; }
 
 const char *kissat_compiler (void) { return COMPILER; }
 
+static const char *cat_lines[] = {
+    "     |\\__/,|  (`\\ ",
+    "   _ |°  ° |_  ) )",
+    "--(((---(((-------",
+    0};
+
 static const char *copyright_lines[] = {
     "Copyright (c) 2021-2023 Armin Biere University of Freiburg",
     "Copyright (c) 2019-2021 Armin Biere Johannes Kepler University Linz",
     0};
 
 const char **kissat_copyright (void) { return copyright_lines; }
+
+const char **kissat_cat (void) { return cat_lines; }
 
 const char *kissat_version (void) { return VERSION; }
 
@@ -63,6 +71,11 @@ void kissat_banner (const char *prefix, const char *name) {
   printf ("%s", name);
   NL ();
 
+  for (const char **p = kissat_cat (), *line; (line = *p); p++) {
+    PREFIX (BOLD MAGENTA);
+    fputs (line, stdout);
+    NL ();
+  }
   PREFIX (BOLD MAGENTA);
   NL ();
 
